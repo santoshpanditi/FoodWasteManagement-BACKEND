@@ -37,4 +37,8 @@ public class FoodController {
         foodRepository.deleteById(id);
         return "Deleted successfully";
     }
+    @GetMapping("/test")
+    public String test() {
+        return "Backend is working ✅";
+    }
 }
