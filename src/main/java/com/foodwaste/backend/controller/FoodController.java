@@ -1,4 +1,5 @@
 package com.foodwaste.backend.controller;
+
 import com.foodwaste.backend.model.Food;
 import com.foodwaste.backend.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,38 +8,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/foods")
 @CrossOrigin(origins = "*")
 public class FoodController {
 
     @Autowired
     private FoodRepository foodRepository;
 
+    // TEST
+    @GetMapping("/test")
+    public String test() {
+        return "WORKING ✅";
+    }
+
     // GET ALL
-    @GetMapping("/foods")
+    @GetMapping("")
     public List<Food> getAllFoods() {
         return foodRepository.findAll();
     }
 
     // ADD FOOD
-    @PostMapping("/addFood")
+    @PostMapping("")
     public Food addFood(@RequestBody Food food) {
         return foodRepository.save(food);
     }
 
     // DELETE FOOD
-    @DeleteMapping("/deleteFood/{id}")
+    @DeleteMapping("/{id}")
     public String deleteFood(@PathVariable int id) {
-
         if (!foodRepository.existsById(id)) {
             return "Food not found";
         }
-
         foodRepository.deleteById(id);
         return "Deleted successfully";
-    }
-    @GetMapping("/test")
-    public String test() {
-        return "Backend is working ✅";
     }
 }
